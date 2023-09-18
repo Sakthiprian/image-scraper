@@ -27,7 +27,7 @@ keywords = [
     "Amazon boxes",
     "Postal boxes"
 ]
-def imscrape(keyword_list):
+def imscrape(keyword_list,folder_name):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
@@ -54,11 +54,11 @@ def imscrape(keyword_list):
             try:
                 if img_url and img_url.startswith('http'):
                     img_filename = f"{keyword.replace(' ', '_')}_{count}.jpg"
-                    urllib.request.urlretrieve(img_url, os.path.join("train_data", img_filename))
+                    urllib.request.urlretrieve(img_url, os.path.join(folder_name, img_filename))
                     count += 1
             except Exception as e:
                 print(f"Error downloading image {i} for keyword {keyword}: {str(e)}")
 
     driver.quit()
 
-imscrape(keywords)
+imscrape(keywords,"train_data")
